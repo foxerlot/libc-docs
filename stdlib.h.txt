@@ -1,0 +1,171 @@
+`#include <stdlib.h>`
+
+This header defines several general purpose functions, 
+including dynamic memory management, random number generation, 
+communication with the environment, integer arithmetics, 
+searching, sorting and converting.
+
+-# MACRO CONSTANTS
+
+#define EXIT_FAILURE 1
+#define EXIT_SUCCESS 0
+#define MB_CUR_MAX (__ctype_get_mb_cur_max())
+#define NULL ((void*)0)
+#define RAND_MAX (0x7fffffff)
+
+-# FUNCTIONS
+
+-## STRING CONVERSION
+
+double atof( const char* str );
+	Convert string to double.
+	str - pointer to the null-terminated byte string to convert
+	
+	see also:
+	int atoi( const char* str );
+	long int atol( const char* str );
+	long long int atoll( const char* str );
+
+double strtod( const char* str, char** endptr );
+	Convert string to double, with error reporting.
+	str    - pointer to the null-terminated byte string to convert
+	endptr - if not NULL, points to the first character after the number in str
+
+	see also:
+	float strtof( const char* str, char** endptr );
+	long int strtol( const char* str, char** endptr );
+	long double strtold( const char* str, char** endptr );
+	long long int strtoll( const char* str, char** endptr );
+	unsinged long int strtoul( const char* str, char** endptr );
+	unsigned long long int strtoull( const char* str, char** endptr );
+
+-## PSEUDO-RANDOM NUMBER GENERATION
+
+int rand( void );
+	Returns a pseudo-random number between 0 and RAND_MAX.
+
+void srand( unsigned int seed );
+	Seeds random number generator.
+	seed - an integer value to be used as seed by the pseudo-random number generator algorithm.
+
+-## DYNAMIC MEMORY MANAGEMENT
+
+void* malloc( size_t size );
+	Allocate a memory block.
+	size - size of the memory block, in bytes
+
+void* calloc( size_t num, size_t size );
+	Allocate and zero-initialize a memory block.
+	num  - number of elements to allocate
+	size - size of each element
+
+void* realloc( void* ptr, size_t size );
+	Reallocate a memory block.
+	ptr  - pointer to a memory block previously allocated with malloc, calloc or realloc. If NULL, realloc acts as malloc
+	size - new size for the memory block, in bytes
+
+void free( void* ptr );
+	Deallocate a memory block.
+	ptr - pointer to a memory block previously allocated with malloc, calloc, or realloc
+
+-## ENVIRONMENT
+
+void abort( void );
+	Abort current process. The program is terminated without destroying any object and without calling any of the functions passed to atexit or at_quick_exit.
+
+int atexit( void (*func)(void) );
+	Set a function to be executed on exit.
+	func - function to be called, the function shall return no value and take no arguments
+
+int at_quick_exit( void (*func)(void) );
+	Set a function to be executed on quick exit.
+	func - function to be called, the function shall return no value and take no arguments
+
+void exit( int status );
+	Terminate calling process.
+	status - status code
+
+void quick_exit( int status );
+	Terminate calling process quick.
+	status - status code
+
+void _Exit( int status );
+	Terminate calling process. No object destructors, nor functions registered by atexit or at_quick_exit are called
+	status - status code
+
+char* getenv( const char* name );
+	Get environment string.
+	name - pointer to a null-terminated byte string containing the name of the requested variable
+
+int system( const char* command );
+	Execute system command.
+	command - pointer to a null-terminated byte string containing the system command to be executed. If NULL, system() checks for a command processor
+
+-## SEARCHING AND SORTING
+
+void* bsearch( const void* key, const void* ptr, size_t count, size_t size, int (*comp)(const void*,const void*) );
+	Binary search in array.
+	key   - pointer to the element to search for
+	ptr   - pinter to the array to examine
+	count - number of elements in the array 
+	size  - size of each element in the array in bytes
+	comp  - point to a function that compares two elements
+
+void qsort( void* ptr, size_t count, size_t size, int (*comp)(const void*,const void*) );
+	sort elements of array.
+	ptr - pointer to the first object of the array to be sorted, converted to a void*
+	count - number of elements in the array pointed to by ptr
+	size - size in bytes of each element in the array
+	comp - pointer to a function that compares two elements
+
+-## INTEGER ARITHMETICS
+
+int abs( int n );
+	Returns the absoulte value of parameter n
+	n - integral value
+
+	see also:
+	long int labs( long int n );
+	long long int llabs( long long int n );
+
+div_t div( int numer, int denom );
+	Returns the integral quotient and remainder of the division of numer by denom (numer/denom) as a structure of type div_t
+	numer - numerator
+	denom - denominator
+	
+	see also:
+	ldiv_t ldiv( long int numer, long int denom )
+	lldiv_t lldiv( long int numer, long int denom )
+
+-## MULTIBYTE CHARACTERS
+
+int mblen( const char* pmb, size_t max );
+	Returns the size of the multibyte character pointed by pmb, examining at most max bytes.
+	pmb - pointer to the first byte of a multibyte character
+	max - maximum number of bytes of pmb to consider for the multibyte character
+
+int mbtowc( wchar_t* pwc, const char* pmb, size_t max );
+	Converts multibyte sequence to a wide character.
+	pwc - pointer to an object of type wchar_t
+	pmb - pointer to the first byte of a multibyte character
+	max - maximum number of bytes of pmb to consider for the multibyte character
+
+int wctomb( char* pmb, wchar_t wc );
+	Convert wide character to multibyte sequence.
+	pmb - pointer to an array large enough to hold a multibyte sequence
+	wc - wchar_t variable to be converted
+
+-## MULTIBYTE STRINGS
+
+size_t mbstowcs( wchar_t* dest, const char* src, size_t max );
+	Converts multibyte sequence to a wide character.
+	dest - pointer to an array of wchar_t elements long enough to contain the resulting sequence
+	src  - pointer to a null-terminated byte string with the multibyte characters to be interpreted
+	max  - maximum number of wchar_t characters to write to dest
+
+size_t wcstombs( char* dest, const wchar_t* src, size_t max );
+	Converts multibyte sequence to a wide character.
+	dest - pointer to an array of char elements long enough to contain the resulting sequence
+	src  - C wide string to be translated
+	max  - maximum number of bytes to be written to dest
+

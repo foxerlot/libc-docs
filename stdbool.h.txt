@@ -1,0 +1,15 @@
+`#include <stdbool.h>`
+
+This header provides macros for boolean type.
+
+-# MACROS
+
+#define bool _Bool
+
+-# MACRO CONSTANTS
+
+#define true 1
+
+#define false 0
+
+#define __bool_true_false_are_defined 1

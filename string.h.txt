@@ -1,0 +1,136 @@
+`#include <string.h>`
+
+This header provides functions for handling null-terminated byte strings, as well as ordinary byte arrays.
+
+-# MACROS
+
+#define NULL /* implementation-defined */
+	Implementation-defined null pointer constant.
+
+# TYPES
+
+typedef /* implementation-defined */ size_t;
+	Unsigned integer type returned by the sizeof operator.
+
+-# FUNCTIONS
+
+-## STRING MANIPULATION 
+
+char* strcpy( char* restrict dest, const char* restrict src );
+	Copies one string to another.
+	dest - pointer to the character array to write to
+	src  - pointer to the null-terminated byte string to copy from
+
+char* strncpy( char* restrict dest, const char* restrict src, size_t count );
+	Copies a certain amount of characters from one string to another.
+	dest  - pointer to the character array to write to
+	src   - pointer to the null-terminated byte string to copy from
+	count - maximum number of characters to copy
+
+char* strcat( char* restrict dest, const char* restrict src );
+	Concatenates two strings.
+	dest - pointer to the null-terminated byte string to append to
+	src  - pointer to the null-terminated byte string to copy from
+
+char* strncat( char* restrict dest, const char* restrict src, size_t count );
+	Concatenates a certain amount of characters of two strings.
+	dest  - pointer to the null-terminated byte string to append to
+	src   - pointer to the null-terminated byte string to copy from
+	count - maximum number of characters to copy
+
+size_t strxfrm( char* restrict dest, const char* restrict src, size_t count );
+	Transform a string so that strcmp would produce the same result as strcoll.
+	dest  - pointer to the first element of the array where the transformed string will be written
+	src   - pointer to the first character of a null-terminated byte string to transform
+	count - maximum number of characters to be written
+
+-## STRING EXAMINATION
+
+size_t strlen( const char* str );
+	Returns the length of a given string.
+	str - pointer to the null-terminated byte string to be examined
+
+int strcmp( const char* lhs, const char* rhs );
+	Compares two strings.
+	lhs, rhs - pointers to the null-terminated byte strings to compare
+
+int strcmp( const char* lhs, const char* rhs, size_t count );
+	Compares  a certain amount of characters of two strings.
+	lhs, rhs - pointers to the null-terminated byte strings to compare
+	count    - maximum number of characters to compare
+
+int strcoll( const char* lhs, const char* rhs );
+	Compares two strings in accordance to the current locale.
+	lhs, rhs - pointers to the null-terminated byte strings to compare.
+
+char* strchr( const char* str, int ch );
+	Finds the first occurrence of a character.
+	str - pointer to the null-terminated byte string to be analyzed.
+	ch  - character to search for
+
+char* strrchr( const char* str, int ch );
+	Finds the last occurence of a character.
+	str - pointer to the null-terminated byte string to be analyzed.
+	ch  - character to search for
+
+size_t strspn( const char* dest, const char* src );
+	Returns the length of the maximum initial segment that consists of only the characters found in another byte string.
+	dest - pointer to the null-terminated byte string to be analyzed
+	src  - pointer to the null-terminated byte string that contains the characters to search for
+
+size_t strcspn( const char* dest, const char* src );
+	Returns the length of the maximum initial segment that consists of only the characters not found in another byte string.
+	dest - pointer to the null-terminated byte string to be analyzed
+	src  - pointer to the null-terminated byte string that contains the characters to search for
+
+char* strpbrk( const char* dest, const char* breakset );
+	Finds the first location of any character in one string, in another string.
+	dest     - pointer to the null-terminated byte string to be analyzed
+	breakset - pointer to the null-terminated byte string that contains the characters to search for
+
+char* strstr( const char* str, const char* substr );
+	Finds the first occurence of a substring of characters.
+	str    - pointer to the null-terminated byte string to examine
+	substr - pointer to the null-terminated byte string to search for
+
+char* strtok( char* restrict str, const char* restrict delim );
+	Finds the next token in a byte string.
+	str    - pointer to the null-terminated byte string to tokenize
+	delim  - pointer to the null-terminated byte string identifying delimiters
+
+-## ARRAY MANIPULATION
+
+void* memchr( const void* ptr, int ch, size_t count );
+	Searches an array for the first occurrence of a character.
+	ptr   - pointer to the object to be examined
+	ch    - bytes to search for
+	count - max number of bytes to examine
+
+int memcmp( const void* lhs, const void* rhs, size_t count );
+	Compares two buffers.
+	lhs, rhs - pointers to the objects to compare
+	count    - number of bytes to examine
+
+void* memset( void* dest, int ch, size_t count );
+	Fills a buffer with a character.
+	dest  - pointer to the object to fill
+	ch    - fill byte
+	count - number of bytes to fill
+
+void* memcpy( void* restrict dest, const void* restrict src, size_t count );
+	Copies one buffer to another.
+	dest  - pointer to the object to copy to
+	src   - pointer to the object to copy from
+	count - number of bytes to copy
+
+void* memmove( void* dest, const void* src, size_t count );
+	Moves one buffer to another.
+	dest  - pointer to the object to copy to
+	src   - pointer to the object to copy from
+	count - number of bytes to copy
+
+-## MISCELLANEOUS
+
+char* strerror( int errnum );
+	Returns a text version of a given error code.
+	errnum - integral value referring to an error code
