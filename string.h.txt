@@ -101,30 +101,30 @@ char* strtok( char* restrict str, const char* restrict delim );
 -## ARRAY MANIPULATION
 
 void* memchr( const void* ptr, int ch, size_t count );
-	Searches an array for the first occurrence of a character.
+	Searches for a byte value inside a block of memory.
 	ptr   - pointer to the object to be examined
 	ch    - bytes to search for
 	count - max number of bytes to examine
 
 int memcmp( const void* lhs, const void* rhs, size_t count );
-	Compares two buffers.
+	Compares two memory blocks byte-by-byte.
 	lhs, rhs - pointers to the objects to compare
 	count    - number of bytes to examine
 
 void* memset( void* dest, int ch, size_t count );
-	Fills a buffer with a character.
+	Fills a block of memory with a specific byte value.
 	dest  - pointer to the object to fill
 	ch    - fill byte
 	count - number of bytes to fill
 
 void* memcpy( void* restrict dest, const void* restrict src, size_t count );
-	Copies one buffer to another.
+	Copies memory from one location to another.
 	dest  - pointer to the object to copy to
 	src   - pointer to the object to copy from
 	count - number of bytes to copy
 
 void* memmove( void* dest, const void* src, size_t count );
-	Moves one buffer to another.
+	Copies memory safely, even if regions overlap.
 	dest  - pointer to the object to copy to
 	src   - pointer to the object to copy from
 	count - number of bytes to copy
