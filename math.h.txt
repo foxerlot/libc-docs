@@ -1,0 +1,236 @@
+`#include <math.h>`
+
+This header provides mathematical functions and floating-point utilities.
+
+-# TYPES
+
+typedef /* implementation-defined */ float_t;
+	Most efficient floating-point type at least as wide as float.
+
+typedef /* implementation-defined */ double_t;
+	Most efficient floating-point type at least as wide as double.
+
+-# CONSTANTS
+
+#define HUGE_VALF
+#define HUGE_VAL
+#define HUGE_VALL
+	Positive infinity values for float, double, and long double.
+
+#define INFINITY
+	Positive infinity (float).
+
+#define NAN
+	Quiet NaN (float).
+
+#define FP_ILOGB0
+#define FP_ILOGBNAN
+	Special return values for ilogb when argument is 0 or NaN.
+
+#define FP_FAST_FMAF
+#define FP_FAST_FMA
+#define FP_FAST_FMAL
+	Indicates fma is as fast or faster than separate multiply and add.
+
+#define MATH_ERRNO
+#define MATH_ERREXCEPT
+#define math_errhandling
+	Indicates how math errors are reported (errno, floating exceptions, or both).
+
+-# FLOATING-POINT CLASSIFICATION MACROS
+
+#define FP_NORMAL
+#define FP_SUBNORMAL
+#define FP_ZERO
+#define FP_INFINITE
+#define FP_NAN
+	Floating-point classification categories.
+
+-# FUNCTIONS
+
+(All functions exist in three forms unless otherwise noted:)
+	• double version (e.g., sin)
+	• float version (e.g., sinf)
+	• long double version (e.g., sinl)
+
+-## BASIC OPERATIONS
+
+double fabs( double x );
+	Absolute value.
+
+double fmod( double x, double y );
+	Floating-point remainder of x / y.
+
+double remainder( double x, double y );
+	Signed remainder.
+
+double remquo( double x, double y, int* quo );
+	Signed remainder and part of quotient.
+
+double fma( double x, double y, double z );
+	Fused multiply-add (x*y + z with single rounding).
+
+double fmax( double x, double y );
+	Larger of two values.
+
+double fmin( double x, double y );
+	Smaller of two values.
+
+double fdim( double x, double y );
+	Positive difference (max(0, x-y)).
+
+double nan( const char* tagp );
+	Returns a NaN.
+
+-## EXPONENTIAL AND LOGARITHMIC
+
+double exp( double x );
+	e^x
+
+double exp2( double x );
+	2^x
+
+double expm1( double x );
+	e^x - 1 (accurate for small x)
+
+double log( double x );
+	Natural logarithm.
+
+double log10( double x );
+	Base-10 logarithm.
+
+double log2( double x );
+	Base-2 logarithm.
+
+double log1p( double x );
+	ln(1+x) (accurate for small x)
+
+-## POWER FUNCTIONS
+
+double pow( double x, double y );
+	x raised to power y.
+
+double sqrt( double x );
+	Square root.
+
+double cbrt( double x );
+	Cube root.
+
+double hypot( double x, double y );
+	√(x² + y²)
+
+-## TRIGONOMETRIC
+
+double sin( double x );
+double cos( double x );
+double tan( double x );
+	Trigonometric functions (argument in radians).
+
+double asin( double x );
+double acos( double x );
+double atan( double x );
+	Inverse trigonometric functions.
+
+double atan2( double y, double x );
+	Arc tangent using quadrant information.
+
+-## HYPERBOLIC
+
+double sinh( double x );
+double cosh( double x );
+double tanh( double x );
+
+double asinh( double x );
+double acosh( double x );
+double atanh( double x );
+
+-## ERROR AND GAMMA
+
+double erf( double x );
+	Error function.
+
+double erfc( double x );
+	Complementary error function.
+
+double tgamma( double x );
+	Gamma function.
+
+double lgamma( double x );
+	Logarithm of gamma function.
+
+-## ROUNDING AND NEAREST INTEGER
+
+double ceil( double x );
+	Smallest integer ≥ x.
+
+double floor( double x );
+	Largest integer ≤ x.
+
+double trunc( double x );
+	Rounds toward zero.
+
+double round( double x );
+	Rounds away from zero in halfway cases.
+
+long lround( double x );
+long long llround( double x );
+	Round and return integer type.
+
+double nearbyint( double x );
+	Rounds using current rounding mode.
+
+double rint( double x );
+	Rounds using current rounding mode, may raise exceptions.
+
+long lrint( double x );
+long long llrint( double x );
+
+-## FLOATING-POINT MANIPULATION
+
+double frexp( double x, int* exp );
+	Breaks into significand and exponent.
+
+double ldexp( double x, int exp );
+	x * 2^exp
+
+double modf( double x, double* iptr );
+	Splits into integer and fractional parts.
+
+double scalbn( double x, int n );
+double scalbln( double x, long n );
+	x * FLT_RADIX^n
+
+int ilogb( double x );
+	Extracts exponent as integer.
+
+double logb( double x );
+	Extracts exponent as floating-point.
+
+double nextafter( double from, double to );
+double nexttoward( double from, long double to );
+	Next representable value toward target.
+
+double copysign( double x, double y );
+	Magnitude of x with sign of y.
+
+-## CLASSIFICATION AND COMPARISON (MACROS)
+
+int fpclassify( double x );
+	Classifies floating-point value.
+
+int isfinite( double x );
+int isinf( double x );
+int isnan( double x );
+int isnormal( double x );
+	Property checks.
+
+int signbit( double x );
+	Checks if negative.
+
+int isgreater( x, y );
+int isgreaterequal( x, y );
+int isless( x, y );
+int islessequal( x, y );
+int islessgreater( x, y );
+int isunordered( x, y );
+	Relational comparisons that handle NaNs correctly.
